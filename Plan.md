@@ -8,6 +8,10 @@ There would be presets in a json file, you could give presets a name, edit them,
 You could add timers, to what should be executed when.  
 There would be a special web server, what would be an "extension" for the app, it could do some simple things, like by the redirecting url, count how many times the user tried to go on a curtain website and when, but for now, let's just leave that for a future plan.  
 ## Main classes
+### Main 
+ClassVariables: Version, DefEpilog, OutputTypes 
+Functions: InitArgpharse, add, remove, loadpreset, reset
+Statics: Output
 ### HostFile
 ClassVariables: DefaultTopText  
 Functions: Add, Remove, SetContent  
@@ -15,3 +19,6 @@ Properties: CurrentContent, Path
 ### ManageUrl
 ClassVariables: DefaultRedirectUrl  
 Functions: MakeSyntax  
+### ConfigFile
+ClassVariables: Path
+Functions: AddPreset, RemovePreset
