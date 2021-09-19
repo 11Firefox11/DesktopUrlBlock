@@ -10,15 +10,13 @@ There would be a special web server, what would be an "extension" for the app, i
 ## Main classes
 ### Main 
 ClassVariables: Version, DefEpilog, OutputTypes 
-Functions: InitArgpharse, add, remove, loadpreset, reset
-Statics: Output
+Methods: InitArgpharse, add, remove, loadpreset, reset
+StaticMethods: Output
 ### HostFile
-ClassVariables: DefaultTopText  
-Functions: Add, Remove, SetContent  
+ClassVariables: DefaultTopText, DefaultRedirectUrl
+Methods: Add, Remove, SetContent  
+StaticMethods: MakeSyntax
 Properties: CurrentContent, Path  
-### ManageUrl
-ClassVariables: DefaultRedirectUrl  
-Functions: MakeSyntax  
 ### ConfigFile
 ClassVariables: Path
-Functions: AddPreset, RemovePreset
+Methods: AddPreset, RemovePreset
