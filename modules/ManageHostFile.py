@@ -1,14 +1,31 @@
 import sys
-
+from UrlBlockExceptions import *
 class HostFile:
 
     DefaultRedirectUrl = "127.0.0.1"
-    DefaultTopText = "This host file was edited with DesktopUrlBlock.\nFor more information and help, go to the app's github page: https://github.com/11Firefox11/DesktopUrlBlock."
+    DefaultTopText = "# This host file was edited with DesktopUrlBlock.\n# For more information and help, go to the app's github page: https://github.com/11Firefox11/DesktopUrlBlock."
     PlatformsPath = {"win":"c:\windows\system32\drivers\etc\hosts", "linux":"/etc/hosts", "darwin":"/etc/hosts"}
-    HostFilePath = None 
-    
-    def __init__(self):
-        HostFile.HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
+
+    def SetContent(self, content):
+        if self.CheckForPermission():
+            with open(HostFilePath, "w+") as file:
+                file.write(f"{HostFile.DefaultTopText}\n{content}")
+            return True
+
+    def Remove(self, o):
+        pass
+
+    def Add(self, o):
+        pass
+
+    @staticmethod
+    def CheckForPermission():
+        try:
+            with open(HostFilePath, "w+") as file:
+                pass
+            return True
+        except:
+            raise PermissionNotGranted(HostFilePath)
 
     @staticmethod
     def MakeSyntax(urls : list):
@@ -18,4 +35,6 @@ class HostFile:
             urls.append(HostFile.DefaultRedirectUrl)
         return f"{urls[0]}\t{urls[1]}"
 
-print(HostFile().HostFilePath)
+HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
+
+HostFile().SetContent("x")
