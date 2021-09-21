@@ -6,17 +6,31 @@ class HostFile:
     DefaultTopText = "# This host file was edited with DesktopUrlBlock.\n# For more information and help, go to the app's github page: https://github.com/11Firefox11/DesktopUrlBlock."
     PlatformsPath = {"win":"c:\windows\system32\drivers\etc\hosts", "linux":"/etc/hosts", "darwin":"/etc/hosts"}
 
-    def SetContent(self, content):
-        if self.CheckForPermission():
+    @staticmethod
+    def SetContent(content):
+        if HostFile.CheckForPermission() and content != None and content != "":
+            if type(content) == list:
+                finalcontent = ""
+                for part in content:
+                    if part != "" and part != None:
+                        finalcontent += str(part) + "\n"
+                content = finalcontent
             with open(HostFilePath, "w+") as file:
                 file.write(f"{HostFile.DefaultTopText}\n{content}")
             return True
 
-    def Remove(self, o):
+    @staticmethod
+    def Remove(o):
         pass
 
-    def Add(self, o):
+    @staticmethod
+    def Add(o):
         pass
+
+    @property
+    def HostFileContent():
+        if HostFile.CheckForPermission():
+            return open(HostFilePath, "r+").readlines()
 
     @staticmethod
     def CheckForPermission():
@@ -37,4 +51,4 @@ class HostFile:
 
 HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
 
-HostFile().SetContent("x")
+print(HostFile().SetContent(["xd",""]))
