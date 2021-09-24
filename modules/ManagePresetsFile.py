@@ -1,4 +1,4 @@
-from UrlBlockExceptions import *
+from .UrlBlockExceptions import *
 import os, pathlib, json, time
 
 class PresetsFile:

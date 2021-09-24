@@ -1,5 +1,5 @@
 import sys, ctypes
-from UrlBlockExceptions import *
+from .UrlBlockExceptions import *
 class HostFile:
 
     DefaultRedirectUrl = "127.0.0.1"
@@ -39,6 +39,7 @@ class HostFile:
                 with open(HostFilePath, "w") as file:
                     file.write(f"{HostFile.DefaultTopText}{final}")
             elif settype == "add":
+                self.HostFileContent
                 file = open(HostFilePath, "a")
                 if type(o) == list:
                     for part in o:
@@ -53,7 +54,7 @@ class HostFile:
             text = open(HostFilePath, "r").readlines()
             if bool(text) == False:
                 text = ""
-            if len(text) > 2 and "".join(text[:2]) == HostFile.DefaultTopText:
+            if len(text) >= 2 and "".join(text[:2]) == HostFile.DefaultTopText or "".join(text[:2]) + "\n" == HostFile.DefaultTopText:
                 return text[2:]
             else:
                 open(HostFilePath, "w").write(f"{HostFile.DefaultTopText}{text}")
@@ -73,6 +74,6 @@ class HostFile:
             urls[urlindex] = str(urls[urlindex]).replace(" ", "%20")
         if len(urls) < 2:
             urls.append(HostFile.DefaultRedirectUrl)
-        return f"{urls[0]}\t{urls[1]}"
+        return f"{urls[0]} {urls[1]}"
 
 HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
