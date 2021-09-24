@@ -6,4 +6,3 @@ The host file is just simply a file, where you can define that what url should b
 So the user could define, what websites/urls should be blocked, and how.  
 There would be presets in a json file, you could give presets a name, edit them, or you can just add some urls no matter to the presets.  
 You could add timers, to what should be executed when.  
-There would be a special web server, what would be an "extension" for the app, it could do some simple things, like by the redirecting url, count how many times the user tried to go on a curtain website and when, but for now, let's just leave that for a future plan.  
