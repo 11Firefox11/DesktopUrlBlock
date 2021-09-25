@@ -1,3 +1,4 @@
+from traceback import print_exc
 from .UrlBlockExceptions import *
 import os, pathlib, json, time
 
@@ -5,7 +6,7 @@ class PresetsFile:
     Path = os.path.join(pathlib.Path(os.path.realpath(__file__)).parent.parent, "dub-presets.json")
     JsonIndents = 4
 
-    def Manage(self, name=None, value=None, typem="add", forcename=False):
+    def Manage(self, name=None, value=None, typem="add", forcename=True):
         data = self.Content
         if typem == "add" or typem == "set":
             if forcename == True or name not in data or typem == "set":
@@ -46,6 +47,7 @@ class PresetsFile:
         try:
             return json.load(open(PresetsFile.Path,))
         except FileNotFoundError:
-            raise DoesNotExists(PresetsFile.Path, objecttype="path", message="preset file does not exists")
+            open(self.Path, "w+")
+            return {}
         except Exception as e:
             return {}

@@ -19,9 +19,9 @@ class Main:
                         "func":Main.add_url,
                         "args": {
                                 "url":{"help":"Specify an url what will be redirected/blocked."},
-                                "--redirect":{"help":"Specify an url where the url will be redirected to. If not specifed, default redirect url will be used."}
+                                "--redirect":{"help":"Specify an ip adress where the url will be redirected to. If not specifed, default redirect ip adress will be used."}
                             }
-                        },
+                    },
                     "remove":{
                         "help":"Remove urls from the host file.", 
                         "desc":"Remove urls from the host file, with giving the main url or an index.",
@@ -30,8 +30,19 @@ class Main:
                         "args": {
                                 "url":{"help":"Specify an url what will be removed, or specify the index of the url you want to delete."}
                             }
+                    },
+                    "preset":{
+                        "help":"Manage presets.",
+                        "desc":"Manage presets saved in the main presets file. By giving a name, by default you can add a new preset or add links to a preset. You can change managing types, for not just to add preset but do delete and so on.",
+                        "version":"1.0",
+                        "func":Main.preset,
+                        "args":{
+                            "name":{"help":"Specify a preset name what will be managed."},
+                            "--type":{"help":"Specify the manage type. Default value is add. It can be: load, add, remove, reset, set.", "default":"add"}
                         }
                     }
+                }
+
         self.InitArgparse()
 
     def InitArgparse(self):
@@ -57,8 +68,25 @@ class Main:
             if e.__class__.__name__ == "AttributeError":
                 parser.print_help()
             else:
+                traceback.print_exc()
                 self.Output("error", e)
                 self.Output("info", Main.DefEpilog)
+
+    def preset(self, args):
+        if args.type == "add":
+            self.Output("info", f"Adding urls to {args.name}")
+            self.Output("info", "Please input the URL(s) what needs to be redirected/blocked, and their redirect ip adresses, if don't want to specify the redirect adress, then leave it blink.")
+            self.Output("info", "To stop the inserting phrase, type `q` or `quit`.")
+            addcontent = {}
+            while True:
+                print()
+                self.Output("input", "URL:", " ")
+                url = input()
+                self.Output("input", "REDIRECT (leave empty if want to use default):", " ")
+                addcontent[url] = input()
+                print(addcontent)
+
+        # PresetsFile().Manage(name=args.name, typem=args.type)
 
     def remove_url(self, args):
         try:
