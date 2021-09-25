@@ -21,13 +21,22 @@ class Main:
                                 "url":{"help":"Specify an url what will be redirected/blocked."},
                                 "--redirect":{"help":"Specify an url where the url will be redirected to. If not specifed, default redirect url will be used."}
                             }
+                        },
+                    "remove":{
+                        "help":"Remove urls from the host file.", 
+                        "desc":"Remove urls from the host file, with giving the main url or an index.",
+                        "version":"1.0",
+                        "func":Main.remove_url,
+                        "args": {
+                                "url":{"help":"Specify an url what will be removed, or specify the index of the url you want to delete."}
+                            }
                         }
                     }
         self.InitArgparse()
 
     def InitArgparse(self):
         parser = argparse.ArgumentParser(add_help=False, description=f"Desktop URL Block - {Main.Version}", epilog=Main.DefEpilog) 
-        subparsers = parser.add_subparsers(help="List of available command parts.")
+        subparsers = parser.add_subparsers(help="List of available commands.")
         for command in self.Commands:
             commanddict = self.Commands[command]
             commandparse = subparsers.add_parser(command, help=commanddict["help"], add_help=False, description=commanddict["desc"])
@@ -45,14 +54,25 @@ class Main:
         try:
             args.func(self, args)
         except Exception as e:
-            self.Output("error", e)
-            self.Output("info", Main.DefEpilog)
+            if e.__class__.__name__ == "AttributeError":
+                parser.print_help()
+            else:
+                self.Output("error", e)
+                self.Output("info", Main.DefEpilog)
 
+    def remove_url(self, args):
+        try:
+            args.url = int(args.url)
+        except:
+            pass
+        HostFile().SetContent(args.url, "remove")
+        self.Output("info", f"Successfully removed `{args.url}` from the host file. ({HostFilePath})")
 
     def add_url(self, args):
         urls = HostFile().MakeSyntax([args.redirect, args.url])
-        HostFile().SetContent(urls, "add")
-        self.Output("info", f"Successfully added `{urls}` to host file. ({HostFilePath})")
+        if urls:
+            HostFile().SetContent(urls, "add")
+            self.Output("info", f"Successfully added `{urls}` to host file. ({HostFilePath})")
 
     @staticmethod
     def Output(outputtype, text, endprint="\n"):

@@ -22,14 +22,16 @@ class HostFile:
                         file.write(f"{HostFile.DefaultTopText}{o}")
             elif settype == "remove":
                 content = self.HostFileContent
+                if bool(content) == False:
+                    raise IsEmpty(HostFilePath, "host file", "host file is empty, can't remove anything from it")
                 file = open(HostFilePath, "w")
                 final = []
                 if type(o) != list:
                     o = [o]
                 justints = [x for x in o if type(x) == int]
                 for partindex in range(len(content)):
-                    if content[partindex] in o:
-                        o.remove(content[partindex])
+                    if " ".join(o) in content[partindex]:
+                        content.remove(content[partindex])
                     elif partindex in justints:
                         justints.remove(partindex)
                     else:
@@ -70,10 +72,13 @@ class HostFile:
 
     @staticmethod
     def MakeSyntax(urls : list):
-        for urlindex in range(len(urls)):
-            urls[urlindex] = str(urls[urlindex]).replace(" ", "%20")
-        if len(urls) < 2:
-            urls.append(HostFile.DefaultRedirectUrl)
-        return f"{urls[0]} {urls[1]}"
+        if len(urls) >= 2:
+            if urls[0] == None:
+                urls[0] = HostFile.DefaultRedirectUrl
+            for urlindex in range(len(urls)):
+                urls[urlindex] = str(urls[urlindex]).replace(" ", "%20")
+            return f"{urls[0]} {urls[1]}"
+        else:
+            return False
 
 HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
