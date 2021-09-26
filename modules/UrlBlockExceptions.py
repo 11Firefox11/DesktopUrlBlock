@@ -10,7 +10,7 @@ class DefaultUrlBlockException(Exception):
         return f"{self.errorname}: {self.objecttype}: '{self.object}' -> {self.message}."
 
 class PermissionNotGranted(DefaultUrlBlockException):
-    def __init__(self, path, objecttype="host file", message="Permission did not granted, can't access the host file"):
+    def __init__(self, path, objecttype="host file", message="Permission did not granted, can't access the host file, make it sure that the app has permissions (admin)"):
         super().__init__(path, objecttype=objecttype, message=message, errorname=self.__class__.__name__)
 class DoesNotExists(DefaultUrlBlockException):
     def __init__(self, o, objecttype, message):

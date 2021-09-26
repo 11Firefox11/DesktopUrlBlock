@@ -10,7 +10,7 @@ class HostFile:
         self.info = []
 
     def SetContent(self, o, settype="simple"):
-        if self.CheckForPermission() and o != None and o != "":
+        if self.CheckForPermission() and o != None:
             if settype=="simple":
                 if type(o) == list:
                     finalcontent = ""
@@ -18,8 +18,8 @@ class HostFile:
                         if part != "" and part != None:
                             finalcontent += str(part) + "\n"
                     o = finalcontent
-                    with open(HostFilePath, "w") as file:
-                        file.write(f"{HostFile.DefaultTopText}{o}")
+                with open(HostFilePath, "w") as file:
+                    file.write(f"{HostFile.DefaultTopText}{o}")
             elif settype == "remove":
                 content = self.HostFileContent
                 if bool(content) == False:
@@ -73,11 +73,11 @@ class HostFile:
     @staticmethod
     def MakeSyntax(urls : list):
         if len(urls) >= 2:
-            if urls[0] == None:
-                urls[0] = HostFile.DefaultRedirectUrl
+            if urls[1] == None or urls[1] == "":
+                urls[1] = HostFile.DefaultRedirectUrl
             for urlindex in range(len(urls)):
                 urls[urlindex] = str(urls[urlindex]).replace(" ", "%20")
-            return f"{urls[0]} {urls[1]}"
+            return f"{urls[1]} {urls[0]}"
         else:
             return False
 
