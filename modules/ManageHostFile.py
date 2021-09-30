@@ -1,4 +1,4 @@
-import sys, ctypes
+import sys
 from .UrlBlockExceptions import *
 class HostFile:
 

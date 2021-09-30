@@ -6,3 +6,5 @@ The host file is just simply a file, where you can define that what url should b
 So the user could define, what websites/urls should be blocked, and how.  
 There would be presets in a json file, you could give presets a name, edit them, or you can just add some urls no matter to the presets.  
 You could add timers, to what should be executed when.  
+
+> This is just a document for early phrase planning, this document is not about the future updates

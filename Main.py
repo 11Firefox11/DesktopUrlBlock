@@ -1,4 +1,4 @@
-import os, argparse, pathlib, sys, traceback
+import argparse, traceback
 from modules.ManageHostFile import HostFile, HostFilePath
 from modules.ManagePresetsFile import PresetsFile
 from modules.UrlBlockExceptions import *
@@ -65,8 +65,7 @@ class Main:
         try:
             args.func(self, args)
         except Exception as e:
-            if e.__class__.__name__ == "AttributeError":
-                traceback.print_exc()
+            if e.__class__.__name__ == "AttributeError" and "Namespace" in str(e):
                 parser.print_help()
             else:
                 self.Output("error", e)

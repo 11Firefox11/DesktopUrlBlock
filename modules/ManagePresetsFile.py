@@ -1,6 +1,5 @@
-from traceback import print_exc
 from .UrlBlockExceptions import *
-import os, pathlib, json, time
+import os, pathlib, json
 
 class PresetsFile:
     Path = os.path.join(pathlib.Path(os.path.realpath(__file__)).parent.parent, "dub-presets.json")
