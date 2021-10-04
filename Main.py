@@ -94,7 +94,7 @@ class Main:
                         content.append(data)
                 if len(content) >= 2:
                     content = HostFile.MakeSyntax(content).split(" ")
-                    addcontent[content[0]] = content[1]
+                    addcontent[content[1]] = content[0]
                 else:
                     break
             PresetsFile().Manage(name=args.name, typem=args.type, value=addcontent)
