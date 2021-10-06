@@ -19,7 +19,7 @@ class Main:
                         "func":Main.add_url,
                         "args": {
                                 "url":{"help":"Specify an url what will be redirected/blocked."},
-                                "--redirect":{"help":"Specify an ip adress where the url will be redirected to. If not specifed, default redirect ip adress will be used."}
+                                "--redirect":{"help":f"Specify an ip adress where the url will be redirected to. If not specifed, default redirect ip adress will be used. ({HostFile.DefaultRedirectUrl})"}
                             }
                     },
                     "remove":{
@@ -38,11 +38,10 @@ class Main:
                         "func":Main.preset,
                         "args":{
                             "name":{"help":"Specify a preset name what will be managed."},
-                            "--type":{"help":"Specify the manage type. Default value is load. It can be: load, remove, set/add.", "default":"load"}
+                            "--type":{"help":"Specify the manage type. Default value is load. It can be: load, add, remove, set.", "default":"load"}
                         }
                     }
                 }
-
         self.InitArgparse()
 
     def InitArgparse(self):
@@ -75,7 +74,10 @@ class Main:
         addcontent = {}
 
         if args.type == "add" or args.type == "set":
-            self.Output("info", f"Adding urls to preset: {args.name}")
+            if args.type == "add":
+                self.Output("info", f"Adding urls to preset: {args.name}")
+            else:
+                self.Output("info", f"Adding urls to preset: {args.name}")
             self.Output("info", "Please input the URL(s) what needs to be redirected/blocked, and their redirect ip adresses, if don't want to specify the redirect adress, then leave it blink.")
             self.Output("info", "To stop the inserting phrase, type `!q`.")
             defprints = ["URL", "REDIRECT (leave empty if want to use default)"]
@@ -112,7 +114,10 @@ class Main:
             self.Output("info", f"Removing preset by name: {args.name}")
             PresetsFile().Manage(args.name, typem="remove")
             addcontent = "Successful."
-        self.Output("info", f"Successfully executed: {args.type} to preset: {args.name}, with values: {addcontent}")
+        else:
+            self.Output("error", f"Preset manage type: `{args.type}`, does not exists!")
+            exit()
+        self.Output("info", f"Successfully executed: `{args.type}` to preset: `{args.name}`, with values: `{addcontent}`")
 
     def remove_url(self, args):
         try:

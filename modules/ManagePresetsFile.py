@@ -8,9 +8,18 @@ class PresetsFile:
     def Manage(self, name=None, value=None, typem="add", forcename=True):
         data = self.Content
         if typem == "add" or typem == "set":
-            if forcename == True or name not in data or typem == "set":
+            if forcename == True or name not in data:
                 if value != None:
-                    data[name] = value
+                    print(value)
+                    if typem == "set":
+                        data[name] = value
+                    else:
+                        print(name not in data)
+                        if name not in data:
+                            print("add")
+                            data[name] = {}
+                        for key in value:
+                            data[name][key] = value[key]
                     self.Write(data)
                 else:
                     self.Manage(name, typem="remove")
