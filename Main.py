@@ -33,7 +33,7 @@ class Main:
                     },
                     "preset":{
                         "help":"Manage presets.",
-                        "desc":"Manage presets saved in the main presets file. By giving a name, by default you can add a new preset or add links to a preset. You can change managing types, for not just to add preset but do delete and so on.",
+                        "desc":"Manage presets saved in the main presets file. By giving a name, by default you can load in a preset. You can change managing types, for not just to add preset but do add, remove, set (content) presets.",
                         "version":"1.0",
                         "func":Main.preset,
                         "args":{
