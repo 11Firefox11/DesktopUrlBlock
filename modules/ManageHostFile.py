@@ -1,4 +1,4 @@
-import sys
+import sys, copy
 from .UrlBlockExceptions import *
 class HostFile:
 
@@ -22,24 +22,24 @@ class HostFile:
                     file.write(f"{HostFile.DefaultTopText}{o}")
             elif settype == "remove":
                 content = self.HostFileContent
+                copycontent = copy.deepcopy(content)
                 if bool(content) == False:
                     raise IsEmpty(HostFilePath, "host file", "host file is empty, can't remove anything from it")
                 file = open(HostFilePath, "w")
                 final = []
-                if type(o) != list:
-                    o = [o]
-                justints = [x for x in o if type(x) == int]
+                justints = o if type(o) == int else []
                 for partindex in range(len(content)):
-                    if " ".join(o) in content[partindex]:
-                        content.remove(content[partindex])
-                    elif partindex in justints:
-                        justints.remove(partindex)
+                    if partindex == justints:
+                        justints == partindex
+                    elif o == content[partindex].split(" ")[1][:-1] and o.isnumeric() == False:
+                        copycontent.remove(content[partindex])
                     else:
                         final.append(str(content[partindex]))
                 final = "".join(final)
-                self.info = o + justints
                 with open(HostFilePath, "w") as file:
                     file.write(f"{HostFile.DefaultTopText}{final}")
+                if final == "".join(content):
+                    return False
             elif settype == "add":
                 self.HostFileContent
                 file = open(HostFilePath, "a")

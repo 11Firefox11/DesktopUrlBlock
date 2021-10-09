@@ -11,13 +11,10 @@ class PresetsFile:
         if typem == "add" or typem == "set":
             if forcename == True or name not in data:
                 if value != None:
-                    print(value)
                     if typem == "set":
                         data[name] = value
                     else:
-                        print(name not in data)
                         if name not in data:
-                            print("add")
                             data[name] = {}
                         for key in value:
                             data[name][key] = value[key]

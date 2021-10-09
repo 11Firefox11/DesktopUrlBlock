@@ -1,4 +1,4 @@
-import argparse, traceback
+import argparse
 from modules.ManageHostFile import HostFile, HostFilePath
 from modules.ManagePresetsFile import PresetsFile
 from modules.UrlBlockExceptions import *
@@ -58,7 +58,7 @@ class Main:
             commandparse.add_argument('--help', '-h', action='help', default=argparse.SUPPRESS, help=f"Show help about this command ({command}).")
             commandparse.add_argument('--version','-v', action='version',version=f"{Main.OutputTypes['info']}Command '{command}' version: {self.Commands[command]['version']}", help="Shows commands's version number.")
             commandparse.set_defaults(func=commanddict['func'])
-        parser.add_argument('--version','-v', action='version',version=f"Clever Template version: {Main.Version}", help="Shows app's version number.")
+        parser.add_argument('--version','-v', action='version',version=f"Desktop URL Block version: {Main.Version}", help="Shows app's version number.")
         parser.add_argument('--help','-h', action='help', default=argparse.SUPPRESS, help='Shows help about the app.')
         args = parser.parse_args()
         try:
@@ -81,7 +81,6 @@ class Main:
             self.Output("info", "To stop the inserting phrase, type `!q`.")
             defprints = ["URL", "REDIRECT (leave empty if want to use default)"]
             while True:
-                print()
                 content = []
                 for prnt in defprints:
                     self.Output("input", f"{prnt}:", " ")
@@ -121,10 +120,17 @@ class Main:
     def remove_url(self, args):
         try:
             args.url = int(args.url)
+            maintext = " index"
         except:
+            maintext = ""
             pass
-        HostFile().SetContent(args.url, "remove")
-        self.Output("info", f"Successfully removed `{args.url}` from the host file. ({HostFilePath})")
+        if HostFile().SetContent(args.url, "remove"):
+            typeo = "info"
+            maintext = "Successfully removed" + maintext
+        else:
+            typeo = "error"
+            maintext = "Can't remove" + maintext
+        self.Output(typeo, f"{maintext} `{args.url}` from the host file. ({HostFilePath}).")
 
     def add_url(self, args):
         urls = HostFile().MakeSyntax([args.url, args.redirect])
