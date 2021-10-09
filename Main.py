@@ -72,7 +72,6 @@ class Main:
 
     def preset(self, args):
         addcontent = {}
-
         if args.type == "add" or args.type == "set":
             if args.type == "add":
                 self.Output("info", f"Adding urls to preset: {args.name}")
@@ -139,4 +138,5 @@ class Main:
         if outputtype in Main.OutputTypes:
             print(text, end=endprint)
 
-Main()
+if __name__ == "__main__":
+    Main()

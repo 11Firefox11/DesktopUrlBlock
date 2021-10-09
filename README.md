@@ -46,6 +46,10 @@ With this command, the user can manage presets. Load, add, remove, set the conen
 - #### Arguments:
 `name`: This is a positional argument, it should point to a preset name.
 `--type TYPE`: This is an optional argument, `TYPE` refers to be replaced with a manage type. Manage types can be: `load`, `add`, `remove`, `set`.
+- #### Command usage
+```console
+add [--redirect REDIRECT] url
+```
 ## About the `hosts` file
 Almost all desktop operating systems have a file called `hosts`. It is basically a plain text file, that maps hostnames to IP addresses. This is a system file, so for the full use of the app, **please give the app admin privileges**, or it will not work properly.  
 Desktop URL BLock uses that file, to redirect hostnames, to the localhost ip adress. So by that logic, the system will try to access the localhost ip adress when trying to load in that hostname/url/website, but there is no content on the localhost's ip, so by that it basically "blocks" the url.  

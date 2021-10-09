@@ -2,6 +2,7 @@ from .UrlBlockExceptions import *
 import os, pathlib, json
 
 class PresetsFile:
+    
     Path = os.path.join(pathlib.Path(os.path.realpath(__file__)).parent.parent, "dub-presets.json")
     JsonIndents = 4
 
