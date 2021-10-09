@@ -23,3 +23,7 @@ class AlreadyExists(DefaultUrlBlockException):
 class IsEmpty(DefaultUrlBlockException):
     def __init__(self, o, objecttype, message):
         super().__init__(o, objecttype=objecttype, message=message, errorname=self.__class__.__name__)
+
+class OperatingSystemNotSupported(DefaultUrlBlockException):
+    def __init__(self, o, objecttype="operating system", message="not supported"):
+        super().__init__(o, objecttype=objecttype, message=message, errorname=self.__class__.__name__)

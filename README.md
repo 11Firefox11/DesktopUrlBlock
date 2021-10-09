@@ -14,8 +14,8 @@
 - [Releases](#releases)
 ## Introduction
 Desktop URL Block is a console application, for blocking (redirecting) urls easily. Almost all desktop operating systems have a file called `hosts`. It is basically a plain text file, that maps hostnames to IP addresses. This is a system file, so for the full use of the app, **please give the app admin privileges**, or it will not work properly.   
-Dektop URL Block supports presets, what are basically list of urls, what can be named, loaded, edited. Presets work easy, for example you can add a preset by giving it a name, then input some urls in it, what to be blocked. The presets are saved in a JSON file: `dub-presets.json`, in the same directory as the app is in. So to use presets properly, do not remove that file.
-
+Dektop URL Block supports presets, what are basically list of urls, what can be named, loaded, edited. Presets work easy, for example you can add a preset by giving it a name, then input some urls in it, what to be blocked. The presets are saved in a JSON file: `dub-presets.json`, in the same directory as the app is in. So to use presets properly, do not remove that file.   
+**Operating systems supported: `windows`, `linux`, `macOS`.**
 ## Install
 Download the code or the `DesktopUrlBlock.exe` file from a release. Github - [Dekstop URL Block Releases](https://github.com/11Firefox11/DesktopUrlBlock/releases)
 

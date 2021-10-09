@@ -82,3 +82,5 @@ class HostFile:
             return False
 
 HostFilePath = "".join([HostFile.PlatformsPath[pl] for pl in HostFile.PlatformsPath if sys.platform.startswith(pl)])
+if HostFilePath == "":
+    raise OperatingSystemNotSupported(sys.platform)

@@ -1,7 +1,11 @@
-import argparse
-from modules.ManageHostFile import HostFile, HostFilePath
-from modules.ManagePresetsFile import PresetsFile
-from modules.UrlBlockExceptions import *
+try:
+    import argparse
+    from modules.ManageHostFile import HostFile, HostFilePath
+    from modules.ManagePresetsFile import PresetsFile
+    from modules.UrlBlockExceptions import *
+except Exception as e:
+    print(f"ERROR: {e}")
+    exit()
 
 class Main:
 
